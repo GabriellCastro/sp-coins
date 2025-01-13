@@ -1,50 +1,68 @@
-# Welcome to your Expo app 👋
+````markdown
+# sp-coins
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Um aplicativo mobile para gerenciar seus Shopping Coins de forma prática e intuitiva, desenvolvido com Expo e React Native.
 
-## Get started
+---
 
-1. Install dependencies
+## :white_check_mark: Requisitos
 
-   ```bash
-   npm install
-   ```
+- [Node.js](https://nodejs.org/en/)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
 
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 💻 Como executar o aplicativo
 
 ```bash
-npm run reset-project
+# Execute o comando git clone para clonar o repositório
+$ git clone git@github.com:GabriellCastro/sp-coins.git
+
+# Entre na pasta do repositório clonado
+$ cd sp-coins
+
+# Instale as dependências
+$ npm install
+# ou
+$ yarn install
+
+# Para iniciar a aplicação
+$ npm start
+# ou
+$ yarn start
 ```
+````
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Abra o aplicativo Expo Go em seu dispositivo ou use um emulador para visualizar o resultado.
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## :rocket: Tecnologias
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+As seguintes tecnologias foram utilizadas no projeto:
 
-## Join the community
+- [Expo](https://expo.dev/) - Plataforma para desenvolvimento de apps React Native.
+- [React Native](https://reactnative.dev/) - Framework para desenvolvimento mobile.
+- [Expo Router](https://expo.github.io/router/docs) - Sistema de navegação baseado em pastas.
+- [React Navigation](https://reactnavigation.org/) - Navegação para React Native.
+- [React Native Paper](https://callstack.github.io/react-native-paper/) - Biblioteca de componentes UI.
+- [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/) - Animações avançadas no React Native.
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## :wrench: Scripts Disponíveis
+
+- `start`: Inicia o projeto no Expo.
+- `dev`: Inicia o projeto no modo desenvolvimento.
+- `android`: Abre o projeto no Android Emulator.
+- `ios`: Abre o projeto no iOS Simulator.
+- `web`: Executa o projeto no navegador.
+- `test`: Roda os testes com Jest.
+- `lint`: Roda o linter para verificar o código.
+
+---
+
+## Autor
+
+Feito por Gabriel Castro 👋🏽 Entre em contato!
+
+[![Linkedin Badge](https://img.shields.io/badge/-Gabriel-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/eugabrielcastro/)](https://www.linkedin.com/in/eugabrielcastro/)
+[![Gmail Badge](https://img.shields.io/badge/-contatodevgabriel@gmail.com-red?style=flat-square&link=mailto:contatodevgabriel@gmail.com)](mailto:contatodevgabriel@gmail.com)
