@@ -13,7 +13,6 @@ export default function RegisterScreen() {
   const navigation = useNavigation();
 
   function handleRegister() {
-    // Implementar lógica de registro aqui
     navigation.navigate("index" as never);
   }
 
@@ -90,13 +89,13 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#6C44F1",
+    backgroundColor: "#7B22D3",
   },
   header: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#6C44F1",
+    backgroundColor: "#7B22D3",
   },
   appName: {
     fontSize: 24,
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   button: {
-    backgroundColor: "#6C44F1",
+    backgroundColor: "#7B22D3",
     borderRadius: 10,
     height: 50,
     width: "100%",
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   footerLink: {
-    color: "#6C44F1",
+    color: "#7B22D3",
     fontSize: 14,
     fontWeight: "bold",
     marginLeft: 5,

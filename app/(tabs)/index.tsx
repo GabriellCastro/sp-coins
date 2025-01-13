@@ -1,74 +1,272 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { ItemCard } from "@/components/ItemCard";
+import React, { useEffect, useState } from "react";
+import { data } from "@/utils/mockData";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { Image } from "expo-image";
+import { useNavigation } from "expo-router";
+import { Notification } from "@/components/Notification";
+import { ItemPromotion } from "@/components/ItemPromotion";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
+  const [items, setItems] = useState(data);
+  const [notification, setNotification] = useState(false);
+
+  const handlePurchase = (item: any) => {
+    const newItems = items.map((i) => {
+      if (i.id === item.id) {
+        return {
+          ...i,
+          stock: i.stock - 1,
+          purchased: true,
+        };
+      }
+
+      return i;
+    });
+
+    setItems(newItems);
+    setNotification(true);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setNotification(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [notification]);
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            marginTop: 30,
+          }}
+        >
+          <Image
+            source={{
+              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT1XoGyYxqZlHAKFWAakZlXiE1Q2ZD0TZi_3tA3rpY0aOBoVVJTOjdCseSmfVh3YTpeN8&usqp=CAU",
+            }}
+            style={styles.profileImage}
+          />
+          <TouchableOpacity style={styles.shoppingCoinsButton}>
+            <Text style={styles.shoppingCoinsText}>Shopping Coins</Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            marginTop: 10,
+          }}
+        >
+          <Text style={styles.welcomeText}>
+            Olá, <Text style={styles.username}>Gabriel</Text>
+          </Text>
+          <TouchableOpacity>
+            <Ionicons
+              name="notifications"
+              size={30}
+              style={styles.notificationIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.balanceSection}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Ionicons name="wallet-outline" size={30} color="#6A0DAD" />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "baseline",
+              marginLeft: 5,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "regular",
+                color: "#313131",
+                marginRight: 3,
+              }}
+            >
+              Lc
+            </Text>
+            <Text style={styles.balanceText}>5.000.000</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            width: 1,
+            height: 30,
+            backgroundColor: "#313131",
+          }}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <TouchableOpacity
+          style={styles.shopButton}
+          onPress={() => navigation.navigate("shop" as never)}
+        >
+          <Ionicons name="bag-outline" size={26} color="#6A0DAD" />
+          <Text style={styles.shopText}>Shop</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.productList}>
+        <View
+          style={{
+            marginTop: 70,
+            paddingLeft: 20,
+          }}
+        >
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={ItemPromotion}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+        <View style={styles.productContainer}>
+          <FlatList
+            data={data.slice(0, 2)}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <ItemCard item={item} handlePurchase={handlePurchase} />
+            )}
+            numColumns={2}
+            showsVerticalScrollIndicator={false}
+          />
+          <View>
+            {notification && (
+              <Notification notificationMessage={items[0].title} />
+            )}
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={styles.viewAllButton}
+          onPress={() => navigation.navigate("shop" as never)}
+        >
+          <Text style={styles.viewAllText}>Ver todos os produtos</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: "#6A0DAD",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  header: {
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#6A0DAD",
+    padding: 15,
+    height: 140,
+    paddingHorizontal: 24,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 15,
+    marginRight: 10,
+  },
+  welcomeText: {
+    fontSize: 16,
+    color: "#FFF",
+    flex: 1,
+  },
+  username: {
+    fontWeight: "bold",
+  },
+  notificationIcon: {
+    fontSize: 20,
+    color: "#FFF",
+  },
+  shoppingCoinsButton: {
+    backgroundColor: "#333",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+  },
+  shoppingCoinsText: {
+    color: "#FFF",
+    fontSize: 16,
+  },
+  balanceSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#FFF",
+    padding: 20,
+    marginVertical: 10,
+    borderRadius: 12,
+    marginHorizontal: 25,
+    elevation: 5,
+    boxShadow: "0px 2px 5px rgba(0,0,0,0.1)",
+    marginBottom: -40,
+    zIndex: 1,
+  },
+  balanceText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#313131",
+  },
+  shopButton: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  shopText: {
+    color: "#313131",
+    fontWeight: "bold",
+    fontSize: 24,
+    marginLeft: 5,
+  },
+  productList: {
+    flex: 1,
+    backgroundColor: "#F9F9F9",
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
+  },
+  productContainer: {
+    paddingHorizontal: 10,
+  },
+  viewAllButton: {
+    backgroundColor: "#6A0DAD",
+    borderRadius: 50,
+    alignItems: "center",
+    position: "absolute",
+    bottom: 110,
+    left: 20,
+    right: 20,
+    padding: 15,
+  },
+  viewAllText: {
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
