@@ -1,4 +1,4 @@
-````markdown
+
 # sp-coins
 
 Um aplicativo mobile para gerenciar seus Shopping Coins de forma prática e intuitiva, desenvolvido com Expo e React Native.
@@ -29,7 +29,7 @@ $ npm start
 # ou
 $ yarn start
 ```
-````
+
 
 Abra o aplicativo Expo Go em seu dispositivo ou use um emulador para visualizar o resultado.
 
